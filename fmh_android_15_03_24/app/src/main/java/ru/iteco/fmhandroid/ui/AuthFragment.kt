@@ -60,7 +60,6 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        EspressoIdlingResources.increment()
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentAuthBinding.bind(view)
@@ -88,7 +87,8 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             activity?.finishAffinity()
-            EspressoIdlingResources.decrement()
+
+
         }
     }
 }

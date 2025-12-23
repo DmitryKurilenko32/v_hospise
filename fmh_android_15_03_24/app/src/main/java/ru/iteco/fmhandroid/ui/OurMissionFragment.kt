@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import ru.iteco.fmhandroid.EspressoIdlingResources
 import ru.iteco.fmhandroid.R
 import ru.iteco.fmhandroid.adapter.OnOurMissionItemClickListener
 import ru.iteco.fmhandroid.adapter.OurMissionItemListAdapter
@@ -23,6 +24,7 @@ class OurMissionFragment : Fragment(R.layout.fragment_our_mission) {
     private val authViewModel: AuthViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentOurMissionBinding.bind(view)

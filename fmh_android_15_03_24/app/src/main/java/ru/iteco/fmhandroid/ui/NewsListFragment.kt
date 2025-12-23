@@ -16,6 +16,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import ru.iteco.fmhandroid.EspressoIdlingResources
 import ru.iteco.fmhandroid.R
 import ru.iteco.fmhandroid.adapter.NewsListAdapter
 import ru.iteco.fmhandroid.databinding.FragmentNewsListBinding
@@ -96,6 +97,7 @@ class NewsListFragment : Fragment(R.layout.fragment_news_list) {
         binding.apply {
             containerListNewsInclude.allNewsTextView.visibility = View.GONE
             containerListNewsInclude.expandMaterialButton.visibility = View.GONE
+
         }
 
         val adapter = NewsListAdapter(viewModel)

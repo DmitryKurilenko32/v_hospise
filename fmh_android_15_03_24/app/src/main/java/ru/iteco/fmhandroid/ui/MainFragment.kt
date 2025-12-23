@@ -44,7 +44,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     @SuppressLint("Recycle")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding = FragmentMainBinding.bind(view)
 
         val mainMenu = PopupMenu(
@@ -148,5 +147,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             text,
             Toast.LENGTH_LONG
         ).show()
+
     }
 }

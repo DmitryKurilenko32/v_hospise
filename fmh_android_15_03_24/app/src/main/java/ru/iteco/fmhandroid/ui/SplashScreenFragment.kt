@@ -151,13 +151,15 @@ class SplashScreenFragment : Fragment(R.layout.fragment_splash_screen) {
         lifecycleScope.launch {
             authViewModel.authorizedEvent.collectLatest {
                 findNavController().navigate(R.id.action_splashScreenFragment_to_mainFragment)
+
             }
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        EspressoIdlingResources.increment();
         super.onViewCreated(view, savedInstanceState)
+
+        EspressoIdlingResources.increment();
 
         binding = FragmentSplashScreenBinding.bind(view)
 
@@ -224,29 +226,26 @@ class SplashScreenFragment : Fragment(R.layout.fragment_splash_screen) {
             }
         }
 
-
         binding.splashScreenCircularProgressIndicator.visibility = View.VISIBLE
 
         binding.splashscreenImageView.setImageResource(splashscreenImage.image)
+
         binding.splashscreenTextView.apply {
             text = splashscreenImage.title
             setBackgroundResource(splashscreenImage.titleBackground)
             setTextColor(ContextCompat.getColor(context, splashscreenImage.titleColor))
 
-
         }
+
 
         lifecycleScope.launch {
             delay(3_000)
             authViewModel.authorization()
-            EspressoIdlingResources.decrement();
-
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-
         binding.splashScreenCircularProgressIndicator.visibility = View.GONE
         offFullScreen()
     }
@@ -254,6 +253,7 @@ class SplashScreenFragment : Fragment(R.layout.fragment_splash_screen) {
     private fun onFullScreen() {
         val window: Window = requireActivity().window
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        EspressoIdlingResources.decrement();
     }
 
     private fun offFullScreen() {
