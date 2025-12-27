@@ -3,12 +3,15 @@ package ru.iteco.fmhandroid.ui.pages;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
@@ -34,12 +37,17 @@ public class ControlPanelPage {
     public ViewInteraction getButtonNews;
     public ViewInteraction getButtonAddNews;
     public ViewInteraction getButtonCategory;
-    public DataInteraction getButtonChoiceCategory;
-    public DataInteraction getButtonData;
+    public ViewInteraction getChoiceCategory;
+    public ViewInteraction getButtonData;
     public ViewInteraction getButtonOk;
     public ViewInteraction getButtonTime;
-    public ViewInteraction getButtonDescription;
+    public ViewInteraction getDescription;
     public ViewInteraction getButtonSave;
+    public String textCategory = "Объявление";
+    public ViewInteraction getTitle;
+    public ViewInteraction getButtonSort;
+    public ViewInteraction getButtonOpenDescription;
+    public ViewInteraction getTextDescription;
 
     public ControlPanelPage() {
 
@@ -73,18 +81,18 @@ public class ControlPanelPage {
                                         1),
                                 0)));
 
-        getButtonChoiceCategory = onData(anything())
-                .inAdapterView(childAtPosition(
-                        withClassName(is("android.widget.PopupWindow$PopupBackgroundView")),
-                        0))
-                .atPosition(0);
+        getChoiceCategory = onView(
+                allOf(withId(R.id.news_item_category_text_auto_complete_text_view),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.news_item_category_text_input_layout),
+                                        0),
+                                0)));
+        getTitle = onView(withId(R.id.news_item_title_text_input_edit_text));
 
 
 
-        getButtonData = onData(anything()).inAdapterView(childAtPosition(
-                        withClassName(is("android.widget.PopupWindow$PopupBackgroundView")),
-                        0))
-                .atPosition(0);
+        getButtonData = onView(withId(R.id.news_item_publish_date_text_input_edit_text));
 
         getButtonTime = onView(allOf(withId(R.id.news_item_publish_time_text_input_edit_text),
                 childAtPosition(childAtPosition(
@@ -101,12 +109,7 @@ public class ControlPanelPage {
                                 3)));
 
 
-        getButtonDescription = onView(
-                allOf(withId(R.id.news_item_description_text_input_edit_text),
-                        childAtPosition(childAtPosition(
-                                        withId(R.id.news_item_description_text_input_layout),
-                                        0),
-                                0)));
+        getDescription = onView(withId(R.id.news_item_description_text_input_edit_text));
 
         getButtonSave = onView(
                 allOf(withId(R.id.save_button), withText("Save"), withContentDescription("Save"),
@@ -115,6 +118,15 @@ public class ControlPanelPage {
                                         withClassName(is("com.google.android.material.card.MaterialCardView")),
                                         0),
                                 6)));
+        getButtonSort = onView(withId(R.id.sort_news_material_button));
+
+        getButtonOpenDescription = onView(withId(R.id.news_list_recycler_view));
+
+        getTextDescription = onView(
+                allOf(withId(R.id.news_item_description_text_view), withText("Объявление"),
+                        withParent(withParent(withId(R.id.news_item_material_card_view)))));
+
+        textCategory = textCategory;
 }
 
         public void EnterControlPanel (){
@@ -126,6 +138,31 @@ public class ControlPanelPage {
             onView(isRoot()).perform(waitDisplayed(R.id.edit_news_material_button, 8000));
             getButtonAddNews.check(matches(isDisplayed()));
             getButtonAddNews.perform(click());
+        }
+        public void AddNews (String textCategory, String textTitle, String textDescription){
+            onView(isRoot()).perform(waitDisplayed(R.id.add_news_image_view, 8000));
+            getButtonAddNewsControlPanel.check(matches(isDisplayed()));
+            getButtonAddNewsControlPanel.perform(click());
+            onView(isRoot()).perform(waitDisplayed(R.id.news_item_category_text_auto_complete_text_view, 8000));
+            getButtonCategory.check(matches(isDisplayed()));
+            getButtonCategory.perform(click());
+            onView(isRoot()).perform(waitDisplayed(R.id.news_item_category_text_auto_complete_text_view, 8000));
+            getChoiceCategory.check(matches(isDisplayed()));
+            getChoiceCategory.perform(replaceText(textCategory), closeSoftKeyboard());
+            getTitle.check(matches(isDisplayed()));
+            getTitle.perform(replaceText(textTitle));
+            getButtonData.check(matches(isDisplayed()));
+            getButtonData.perform(click());
+            getButtonOk.check(matches(isDisplayed()));
+            getButtonOk.perform(click());
+            getButtonTime.check(matches(isDisplayed()));
+            getButtonTime.perform(click());
+            getButtonOk.check(matches(isDisplayed()));
+            getButtonOk.perform(click());
+            getDescription.check(matches(isDisplayed()));
+            getDescription.perform(replaceText(textDescription));
+            getButtonSave.check(matches(isDisplayed()));
+            getButtonSave.perform(click());
         }
         private static Matcher<View> childAtPosition (
         final Matcher<View> parentMatcher, final int position){

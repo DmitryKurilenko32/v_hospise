@@ -48,10 +48,11 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/category_icon_image_view"
+            app:layout_constraintEnd_toStartOf="@+id/view_news_item_image_view"
             app:layout_constraintStart_toEndOf="@+id/category_icon_image_view"
             app:layout_constraintTop_toTopOf="@id/category_icon_image_view"
-            app:layout_constraintEnd_toStartOf="@+id/view_news_item_image_view"
-            app:layout_constraintBottom_toBottomOf="@id/category_icon_image_view"
+            app:layout_constraintVertical_bias="1.0"
             tools:text="@string/news_item_title" />
 
         <TextView
@@ -73,10 +74,10 @@
             android:layout_height="@dimen/line_divider_height"
             android:background="#F5F5F5"
             android:contentDescription="@string/line_divider_description"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/news_item_date_text_view"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toBottomOf="parent" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/news_item_group"
