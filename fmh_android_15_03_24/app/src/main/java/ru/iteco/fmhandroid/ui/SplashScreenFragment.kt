@@ -159,8 +159,6 @@ class SplashScreenFragment : Fragment(R.layout.fragment_splash_screen) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        EspressoIdlingResources.increment();
-
         binding = FragmentSplashScreenBinding.bind(view)
 
         when (splashscreenImage.titleBackground) {
@@ -253,7 +251,6 @@ class SplashScreenFragment : Fragment(R.layout.fragment_splash_screen) {
     private fun onFullScreen() {
         val window: Window = requireActivity().window
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-        EspressoIdlingResources.decrement();
     }
 
     private fun offFullScreen() {
